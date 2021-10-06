@@ -24,7 +24,7 @@ public class Keyboard : MonoBehaviour
         float yOffset = 0;
         foreach (var row in keyArray)
         {
-            xOffset = -4;
+            xOffset = -2;
             var keys = row.Split(',');
             foreach (var key in keys)
             {
@@ -66,22 +66,27 @@ public class Keyboard : MonoBehaviour
         // {
         //     keyList[(1 - preY) * 10 + preX + 1].onClick();
         // }
+        if (OVRInput.GetDown(OVRInput.RawButton.A) && Value.Length > 0)
+        {
+            Value = Value.Remove(Value.Length - 1, 1);
+        }
 
+        // return;
 
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
             expansion = true;
             for (var i = 0; i < 3; i++)
             {
-                keyList[(1 - i) * 10 + 1].GetComponent<Button>().interactable = false;
-                keyList[(1 - i) * 10 + 3].GetComponent<Button>().interactable = false;
-                keyList[(1 - i) * 10 + 0].GetComponent<Button>().interactable = true;
-                keyList[(1 - i) * 10 + 4].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 3].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 0].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 4].GetComponent<Button>().interactable = true;
 
-                keyList[(1 - i) * 10 + 6].GetComponent<Button>().interactable = false;
-                keyList[(1 - i) * 10 + 8].GetComponent<Button>().interactable = false;
-                keyList[(1 - i) * 10 + 5].GetComponent<Button>().interactable = true;
-                keyList[(1 - i) * 10 + 9].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 6].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 8].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 5].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 9].GetComponent<Button>().interactable = true;
             }
         }
 
@@ -90,15 +95,15 @@ public class Keyboard : MonoBehaviour
             expansion = false;
             for (var i = 0; i < 3; i++)
             {
-                keyList[(1 - i) * 10 + 1].GetComponent<Button>().interactable = true;
-                keyList[(1 - i) * 10 + 3].GetComponent<Button>().interactable = true;
-                keyList[(1 - i) * 10 + 0].GetComponent<Button>().interactable = false;
-                keyList[(1 - i) * 10 + 4].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 3].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 0].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 4].GetComponent<Button>().interactable = false;
 
-                keyList[(1 - i) * 10 + 6].GetComponent<Button>().interactable = true;
-                keyList[(1 - i) * 10 + 8].GetComponent<Button>().interactable = true;
-                keyList[(1 - i) * 10 + 5].GetComponent<Button>().interactable = false;
-                keyList[(1 - i) * 10 + 9].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 6].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 8].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 5].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 9].GetComponent<Button>().interactable = false;
             }
         }
 
@@ -161,9 +166,10 @@ public class Keyboard : MonoBehaviour
             keyList[(1 - preYR) * 10 + preXR + 7].onClick();
         }
 
-        if (OVRInput.GetDown(OVRInput.RawButton.A) && Value.Length > 0)
+
+        if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
-            Value = Value.Remove(Value.Length - 1, 1);
+            // 確定(&入力から離脱？)
         }
     }
 
