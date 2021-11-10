@@ -50,29 +50,12 @@ public class Keyboard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // var dx = (int)Input.GetAxisRaw("Horizontal");
-        // var dy = (int)Input.GetAxisRaw("Vertical");
-        // Debug.Log(dx + ", " + dy);
-        // if (dx != preX || dy != preY)
-        // {
-        //     var data = new PointerEventData(EventSystem.current);
-        //     keyList[(1 - preY) * 10 + preX + 1].GetComponent<Button>().OnPointerExit(data);
-        //     keyList[(1 - dy) * 10 + dx + 1].GetComponent<Button>().OnPointerEnter(data);
-        //     preX = dx;
-        //     preY = dy;
-        // }
-
-        // if (Input.GetKeyDown(KeyCode.Return))
-        // {
-        //     keyList[(1 - preY) * 10 + preX + 1].onClick();
-        // }
+        // back space
         if (OVRInput.GetDown(OVRInput.RawButton.A) && Value.Length > 0)
         {
             Value = Value.Remove(Value.Length - 1, 1);
             Logger.AddAction("back space");
         }
-
-        // return;
 
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
@@ -141,8 +124,6 @@ public class Keyboard : MonoBehaviour
             preYL = y;
         }
 
-        // var lTrigger1 = OVRInput.Get(OVRInput.RawAxis1D.LIndexTrigger);
-        // if (lTrigger1 > 0.8)
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
         {
             keyList[(1 - preYL) * 10 + preXL + 2].onClick();
@@ -160,8 +141,6 @@ public class Keyboard : MonoBehaviour
             preYR = y;
         }
 
-        // var rTrigger1 = OVRInput.Get(OVRInput.RawAxis1D.RIndexTrigger);
-        // if (rTrigger1 > 0.8)
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
             keyList[(1 - preYR) * 10 + preXR + 7].onClick();
@@ -189,29 +168,11 @@ public class Keyboard : MonoBehaviour
 
     private int StickXValue(float value)
     {
-        // if (value < -0.8)
-        // {
-        //     return -2;
-        // }
-        // else if (value < -0.2)
-        // {
-        //     return -1;
-        // }
-        // else if (value < 0.2)
-        // {
-        //     return 0;
-        // }
-        // else if (value < 0.8)
-        // {
-        //     return 1;
-        // }
-        // return 2;
-
         if (value < -0.5)
         {
             return -1;
         }
-        else if (value < 0.2)
+        else if (value < 0.5)
         {
             return 0;
         }
