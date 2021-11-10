@@ -222,5 +222,6 @@ public class NormalKeyboard : MonoBehaviour
     public void Press(string key)
     {
         Value += key;
+        Logger.AddAction("press " + key);
     }
 }

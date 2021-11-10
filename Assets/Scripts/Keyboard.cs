@@ -69,6 +69,7 @@ public class Keyboard : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.RawButton.A) && Value.Length > 0)
         {
             Value = Value.Remove(Value.Length - 1, 1);
+            Logger.AddAction("back space");
         }
 
         // return;
@@ -220,5 +221,6 @@ public class Keyboard : MonoBehaviour
     public void Press(string key)
     {
         Value += key;
+        Logger.AddAction("press " + key);
     }
 }

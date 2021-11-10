@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InputExam : MonoBehaviour
 {
-    private int time = 0;
-    private int errorCount = 0;
+    [SerializeField] private Text problemText;
+    private int progress;
+    private readonly int numberOfProblem;
+    private bool underTask;
     private string currentProblem;
     private string[] problems = {
         "Nice to meet you!",
@@ -13,33 +16,42 @@ public class InputExam : MonoBehaviour
         "What day is tomorrow?"
     };
 
-    // Start is called before the first frame update
-    void Start()
+    public void StartTask(int inputMethod)
     {
+        progress = 0;
+        underTask = true;
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        AskQuestions();
+        Logger.StartTask(inputMethod);
     }
 
     public void Submit(string answer)
     {
-        // 完全一致にしようかなと思っているけど、どこまで許容するか検討
-
-        if (answer == currentProblem)
+        if (!underTask)
         {
-            // correct
+            return;
+        }
 
-            // 次の問題へ
+        Logger.EndProblem(currentProblem, answer);
+
+        progress++;
+        if (progress < numberOfProblem)
+        {
+            AskQuestions();
         }
         else
         {
-            // incorrect
-
-            // 継続
+            underTask = false;
+            // 初期状態に戻す(そのまま再度タスクを初めから開始できる状態)
+            Logger.EndTask();
         }
+    }
+
+    private void AskQuestions()
+    {
+        currentProblem = problems[progress];
+        problemText.text = currentProblem;
+
+        Logger.StartProblem();
     }
 }
