@@ -8,8 +8,8 @@ public class NormalKeyboard : MonoBehaviour
 {
     [SerializeField] Key keyPrefab;
     [SerializeField] float keyDistance;
+    [SerializeField] InputExam exam;
     List<Key> keyList;
-    int preXL = -1, preYL = -1, preXR = -1, preYR = -1;
     public string Value { get; private set; }
     private bool expansion, shift;
 
@@ -47,5 +47,18 @@ public class NormalKeyboard : MonoBehaviour
     {
         Value += key;
         Logger.AddAction("press " + key);
+    }
+
+    // TODO: 以下特殊入力
+
+    public void Submit()
+    {
+        exam.Submit(Value);
+    }
+
+    public void BackSpace()
+    {
+        Value = Value.Remove(Value.Length - 1, 1);
+        Logger.AddAction("back space");
     }
 }

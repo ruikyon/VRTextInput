@@ -66,7 +66,7 @@ public class Logger
     {
         Instance.taskLog = new TaskLog();
         Instance.taskLog.inputMethod = inpurMethod;
-        Instance.taskLog.id = 0; // todo: idはここでとろうかな。。。
+        Instance.taskLog.id = 0; // todo: playerprefsからとる？
         Instance.taskLog.startTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         Instance.problemLogList = new List<ProblemLog>();
     }
@@ -91,9 +91,9 @@ public class Logger
 
     public static void StartProblem()
     {
-        AddAction("start");
         Instance.startTime = Time.time;
         Instance.actionList = new List<ActionLog>();
+        AddAction("start");
     }
 
     public static void EndProblem(string problem, string answer)

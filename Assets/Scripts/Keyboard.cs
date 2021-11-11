@@ -8,6 +8,7 @@ public class Keyboard : MonoBehaviour
 {
     [SerializeField] Key keyPrefab;
     [SerializeField] float keyDistance;
+    [SerializeField] InputExam exam;
     List<Key> keyList;
     int preXL = -1, preYL = -1, preXR = -1, preYR = -1;
     public string Value { get; private set; }
@@ -39,12 +40,6 @@ public class Keyboard : MonoBehaviour
 
         var cursor = transform.GetChild(0);
         cursor.SetSiblingIndex(transform.childCount - 1);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -106,7 +101,6 @@ public class Keyboard : MonoBehaviour
             {
                 key.ToNormal();
             }
-
         }
 
         var stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
@@ -146,10 +140,9 @@ public class Keyboard : MonoBehaviour
             keyList[(1 - preYR) * 10 + preXR + 7].onClick();
         }
 
-
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
-            // 確定(&入力から離脱？)
+            exam.Submit(Value);
         }
     }
 

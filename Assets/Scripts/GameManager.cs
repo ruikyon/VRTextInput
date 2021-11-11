@@ -4,35 +4,70 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] InputExam exam;
+    [SerializeField] GameObject modeSelector, proposedKeyboard, existingKeyboard;
+    [SerializeField] GameObject[] pointers;
+    [SerializeField] GameObject[] cursors;
+
+    public enum InputMethod
+    {
+        ProposedMethod,
+        ExistingMethod
+    }
+
+    public static GameManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-
+        // idがPlayerPrefsになかったらサーバーから取得？
+        // Awakeでもいいかも
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartTask(int inputMethod)
     {
+        modeSelector.SetActive(false);
 
-    }
+        switch (inputMethod)
+        {
+            case (int)InputMethod.ProposedMethod:
+                proposedKeyboard.SetActive(true);
+                break;
+            case (int)InputMethod.ExistingMethod:
+                existingKeyboard.SetActive(true); // cursorのアクティブ管理に関してはこことまとめられる説
+                break;
+        }
 
-    public void StartTask()
-    {
-        // UI切り替え
+        foreach (var pointer in pointers)
+        {
+            pointer.SetActive(false);
+        }
 
-        // pointer off
-
-        // InputExam->StartTask
-
+        exam.StartTask(inputMethod);
     }
 
     public void EndTask()
     {
-        // from InputExam->EndTask
+        modeSelector.SetActive(true);
 
-        // UI戻す
+        proposedKeyboard.SetActive(false);
+        existingKeyboard.SetActive(false);
 
-        // pointer on
-
+        foreach (var pointer in pointers)
+        {
+            pointer.SetActive(true);
+        }
     }
 }

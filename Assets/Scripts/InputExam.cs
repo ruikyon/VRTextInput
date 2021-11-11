@@ -10,7 +10,7 @@ public class InputExam : MonoBehaviour
     private readonly int numberOfProblem;
     private bool underTask;
     private string currentProblem;
-    private string[] problems = {
+    private string[] problems = { // TODO: データセットちゃんと検討する
         "Nice to meet you!",
         "I am going to see Mike.",
         "What day is tomorrow?"
@@ -18,11 +18,12 @@ public class InputExam : MonoBehaviour
 
     public void StartTask(int inputMethod)
     {
+        Logger.StartTask(inputMethod);
+
         progress = 0;
         underTask = true;
 
         AskQuestions();
-        Logger.StartTask(inputMethod);
     }
 
     public void Submit(string answer)
@@ -42,14 +43,14 @@ public class InputExam : MonoBehaviour
         else
         {
             underTask = false;
-            // 初期状態に戻す(そのまま再度タスクを初めから開始できる状態)
             Logger.EndTask();
+            GameManager.Instance.EndTask();
         }
     }
 
     private void AskQuestions()
     {
-        currentProblem = problems[progress];
+        currentProblem = problems[progress];  // TODO: 問題の決定はちゃんとする
         problemText.text = currentProblem;
 
         Logger.StartProblem();

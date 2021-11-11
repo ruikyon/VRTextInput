@@ -51,4 +51,19 @@ public class CursorInputModule : BaseInputModule
     {
         ExecuteEvents.ExecuteHierarchy(target, GetBaseEventData(), ExecuteEvents.submitHandler);
     }
+
+    public override bool ShouldActivateModule()
+    {
+        var res = false;
+        foreach (var cursor in cursors)
+        {
+            if (cursor.gameObject.activeInHierarchy)
+            {
+                res = true;
+                break;
+            }
+        }
+
+        return res;
+    }
 }

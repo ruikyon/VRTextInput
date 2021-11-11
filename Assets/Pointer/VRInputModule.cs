@@ -83,4 +83,9 @@ public class VRInputModule : BaseInputModule
         var res = ExecuteEvents.ExecuteHierarchy(target, data, ExecuteEvents.dragHandler);
         // drag end
     }
+
+    public override bool ShouldActivateModule()
+    {
+        return pointerL.gameObject.activeInHierarchy || pointerR.gameObject.activeInHierarchy;
+    }
 }
