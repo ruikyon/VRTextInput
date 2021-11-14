@@ -24,14 +24,11 @@ public class CursorInputModule : BaseInputModule
             if (cursor)
             {
                 data.Reset();
-                //Debug.Log(cursor.transform.position);
                 data.position = Camera.main.WorldToScreenPoint(cursor.transform.position);
                 eventSystem.RaycastAll(data, m_RaycastResultCache);
 
                 data.button = PointerEventData.InputButton.Left;
-                //Debug.Log(m_RaycastResultCache);
                 data.pointerCurrentRaycast = FindFirstRaycast(m_RaycastResultCache);
-                Debug.Log(m_RaycastResultCache.Count);
                 var hitObject = data.pointerCurrentRaycast.gameObject;
 
                 if (!preState && cursor.Clicked)

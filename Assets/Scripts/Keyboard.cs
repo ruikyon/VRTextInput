@@ -12,7 +12,7 @@ public class Keyboard : MonoBehaviour
     List<Key> keyList;
     int preXL = -1, preYL = -1, preXR = -1, preYR = -1;
     public string Value { get; private set; }
-    private bool expansion, shift;
+    private bool expansion;
 
     void Awake()
     {
@@ -88,7 +88,6 @@ public class Keyboard : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
         {
-            shift = true;
             foreach (var key in keyList)
             {
                 key.ToShift();
@@ -96,7 +95,6 @@ public class Keyboard : MonoBehaviour
         }
         if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
         {
-            shift = false;
             foreach (var key in keyList)
             {
                 key.ToNormal();
