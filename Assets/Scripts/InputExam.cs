@@ -7,7 +7,7 @@ public class InputExam : MonoBehaviour
 {
     [SerializeField] private Text problemText;
     private int progress;
-    private readonly int numberOfProblem;
+    private readonly int numberOfProblem = 3; // TODO: データ入れたら変える(5の予定？)
     private bool underTask;
     private string currentProblem;
     private string[] problems = { // TODO: データセットちゃんと検討する
