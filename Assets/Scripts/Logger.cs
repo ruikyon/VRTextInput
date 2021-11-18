@@ -78,7 +78,12 @@ public class Logger
 
         // local保存
         var path = Application.persistentDataPath + "/task_logs/" + DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
-        Debug.LogError("export path: " + path);
+        Debug.Log("export path: " + path);
+
+        if (!Directory.Exists(Application.persistentDataPath + "/task_logs/"))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/task_logs/");
+        }
 
         using (var streamWriter = new StreamWriter(path))
         {

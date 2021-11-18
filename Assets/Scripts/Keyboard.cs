@@ -52,16 +52,17 @@ public class Keyboard : MonoBehaviour
             Logger.AddAction("back space");
         }
 
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
+        {
+            exam.Submit(Value);
+            Value = "";
+        }
+
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
             expansion = true;
             for (var i = 0; i < 3; i++)
             {
-                keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 3].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 0].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 4].GetComponent<Button>().interactable = true;
-
                 keyList[(2 - i) * 10 + 6].GetComponent<Button>().interactable = false;
                 keyList[(2 - i) * 10 + 8].GetComponent<Button>().interactable = false;
                 keyList[(2 - i) * 10 + 5].GetComponent<Button>().interactable = true;
@@ -74,11 +75,6 @@ public class Keyboard : MonoBehaviour
             expansion = false;
             for (var i = 0; i < 3; i++)
             {
-                keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 3].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 0].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 4].GetComponent<Button>().interactable = false;
-
                 keyList[(2 - i) * 10 + 6].GetComponent<Button>().interactable = true;
                 keyList[(2 - i) * 10 + 8].GetComponent<Button>().interactable = true;
                 keyList[(2 - i) * 10 + 5].GetComponent<Button>().interactable = false;
@@ -88,18 +84,43 @@ public class Keyboard : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
         {
-            foreach (var key in keyList)
+            expansion = true;
+            for (var i = 0; i < 3; i++)
             {
-                key.ToShift();
+                keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 3].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 0].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 4].GetComponent<Button>().interactable = true;
             }
         }
+
         if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
         {
-            foreach (var key in keyList)
+            expansion = false;
+            for (var i = 0; i < 3; i++)
             {
-                key.ToNormal();
+                keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 3].GetComponent<Button>().interactable = true;
+                keyList[(2 - i) * 10 + 0].GetComponent<Button>().interactable = false;
+                keyList[(2 - i) * 10 + 4].GetComponent<Button>().interactable = false;
             }
         }
+
+
+        // if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
+        // {
+        //     foreach (var key in keyList)
+        //     {
+        //         key.ToShift();
+        //     }
+        // }
+        // if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
+        // {
+        //     foreach (var key in keyList)
+        //     {
+        //         key.ToNormal();
+        //     }
+        // }
 
         var stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
         var stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
@@ -136,12 +157,6 @@ public class Keyboard : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
             keyList[(1 - preYR) * 10 + preXR + 7].onClick();
-        }
-
-        if (OVRInput.GetDown(OVRInput.RawButton.X))
-        {
-            exam.Submit(Value);
-            Value = "";
         }
     }
 
