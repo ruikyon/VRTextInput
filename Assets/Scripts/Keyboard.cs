@@ -162,11 +162,11 @@ public class Keyboard : MonoBehaviour
 
     private int StickYValue(float value)
     {
-        if (value < -0.5)
+        if (value < -0.25)
         {
             return -1;
         }
-        else if (value < 0.5)
+        else if (value < 0.25)
         {
             return 0;
         }
@@ -175,11 +175,11 @@ public class Keyboard : MonoBehaviour
 
     private int StickXValue(float value)
     {
-        if (value < -0.5)
+        if (value < -0.25)
         {
             return -1;
         }
-        else if (value < 0.5)
+        else if (value < 0.25)
         {
             return 0;
         }
