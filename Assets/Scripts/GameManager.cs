@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] InputExam exam;
-    [SerializeField] GameObject modeSelector, proposedKeyboard, existingKeyboard;
+    [SerializeField] GameObject modeSelector, problem, proposedKeyboard, existingKeyboard;
     [SerializeField] GameObject[] pointers;
     [SerializeField] GameObject[] cursors;
 
@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public void StartTask(int inputMethod)
     {
         modeSelector.SetActive(false);
+        problem.SetActive(true);
 
         switch (inputMethod)
         {
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     public void EndTask()
     {
         modeSelector.SetActive(true);
+        problem.SetActive(false);
 
         proposedKeyboard.SetActive(false);
         existingKeyboard.SetActive(false);

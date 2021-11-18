@@ -141,6 +141,7 @@ public class Keyboard : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
             exam.Submit(Value);
+            Value = "";
         }
     }
 
