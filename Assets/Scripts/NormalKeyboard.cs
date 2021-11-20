@@ -61,4 +61,10 @@ public class NormalKeyboard : MonoBehaviour
         Value = Value.Remove(Value.Length - 1, 1);
         Logger.AddAction("back space");
     }
+
+    public void Space()
+    {
+        Value += " ";
+        Logger.AddAction("space");
+    }
 }

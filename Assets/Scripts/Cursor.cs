@@ -15,8 +15,12 @@ public class Cursor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var dx = Input.GetAxisRaw("Horizontal");
-        var dy = Input.GetAxisRaw("Vertical");
+        var stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        var stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+        var stick = isRight ? stickR : stickL;
+
+        var dx = stick.x;
+        var dy = stick.y;
         transform.localPosition = new Vector3(Cap(dx * 150, 110) - (isRight ? -1 : 1) * 130, Cap(dy * 100, 75), 0);
     }
 
