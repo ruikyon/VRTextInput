@@ -4,14 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Keyboard : MonoBehaviour
+public class Keyboard : BaseKeyboard
 {
-    [SerializeField] Key keyPrefab;
-    [SerializeField] float keyDistance;
-    [SerializeField] InputExam exam;
     List<Key> keyList;
     int preXL = -1, preYL = -1, preXR = -1, preYR = -1;
-    public string Value { get; private set; }
     private bool expansion;
 
     void Awake()
@@ -139,7 +135,7 @@ public class Keyboard : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
         {
-            keyList[(1 - preYL) * 10 + preXL + 2].onClick();
+            keyList[(1 - preYL) * 10 + preXL + 2].OnClick();
         }
 
         x = StickXValue(stickR.x) * (expansion ? 2 : 1);
@@ -156,7 +152,7 @@ public class Keyboard : MonoBehaviour
 
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
-            keyList[(1 - preYR) * 10 + preXR + 7].onClick();
+            keyList[(1 - preYR) * 10 + preXR + 7].OnClick();
         }
 
         KeyBoardOutput.value = Value;
@@ -186,11 +182,5 @@ public class Keyboard : MonoBehaviour
             return 0;
         }
         return 1;
-    }
-
-    public void Press(string key)
-    {
-        Value += key;
-        Logger.AddAction("press " + key);
     }
 }

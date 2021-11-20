@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Key : MonoBehaviour
 {
-    private Keyboard keyboard;
+    private BaseKeyboard keyboard;
     private string value, shiftValue, markValue, current;
     [SerializeField] private Text text;
 
     public void Init(string _value, string _shiftValue)
     {
-        keyboard = transform.parent.GetComponent<Keyboard>();
+        keyboard = transform.parent.GetComponent<BaseKeyboard>();
 
         value = _value;
         shiftValue = _shiftValue;
@@ -20,21 +18,8 @@ public class Key : MonoBehaviour
         text.text = value[0].ToString();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnClick()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void onClick()
-    {
-        Debug.Log("press: " + current);
         keyboard.Press(current);
     }
 

@@ -1222,8 +1222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyPrefab: {fileID: 3853650589278792379, guid: e1f9787d9be024b09ad34b16ed807342,
     type: 3}
-  keyDistance: 0.5
   exam: {fileID: 1764606222}
+  keyDistance: 0.5
 --- !u!1 &891706703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2293,6 +2293,7 @@ MonoBehaviour:
   - {fileID: 1772300336}
   cursors: []
   debugText: {fileID: 2054562780}
+  debugMessage: 
 --- !u!4 &1764606221
 Transform:
   m_ObjectHideFlags: 0
