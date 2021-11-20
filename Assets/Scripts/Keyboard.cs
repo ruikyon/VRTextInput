@@ -158,6 +158,8 @@ public class Keyboard : MonoBehaviour
         {
             keyList[(1 - preYR) * 10 + preXR + 7].onClick();
         }
+
+        KeyBoardOutput.value = Value;
     }
 
     private int StickYValue(float value)

@@ -8,6 +8,8 @@ public class KeyBoardOutput : MonoBehaviour
     [SerializeField] Keyboard keyboard;
     Text text;
 
+    public static string value;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +19,6 @@ public class KeyBoardOutput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = keyboard.Value;
+        text.text = value;
     }
 }

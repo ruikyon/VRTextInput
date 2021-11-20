@@ -21,7 +21,14 @@ public class Cursor : MonoBehaviour
 
         var dx = stick.x;
         var dy = stick.y;
-        transform.localPosition = new Vector3(Cap(dx * 150, 110) - (isRight ? -1 : 1) * 130, Cap(dy * 100, 75), 0);
+
+        // var dx = Input.GetAxis("Horizontal");
+        // var dy = Input.GetAxis("Vertical");
+
+        transform.localPosition = new Vector3(Cap(dx * 150, 110) - (isRight ? -1 : 1) * 125, Cap(dy * 100, 75), 0);
+
+        Clicked = isRight ? OVRInput.Get(OVRInput.RawButton.RIndexTrigger) : OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger);
+        // Clicked = Input.GetKey(KeyCode.Return);
     }
 
     private float Cap(float value, float max)

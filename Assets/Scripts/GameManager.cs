@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] pointers;
     [SerializeField] GameObject[] cursors;
     [SerializeField] Text debugText;
+
+    public string debugMessage;
 
     public enum InputMethod
     {
@@ -36,21 +39,21 @@ public class GameManager : MonoBehaviour
     {
         // idがPlayerPrefsになかったらサーバーから取得？
         // Awakeでもいいかも
-        debugText.text = Application.persistentDataPath;
     }
 
-    // private void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.A))
-    //     {
-    //         exam.StartTask(0);
-    //     }
-    //     if (Input.GetKeyDown(KeyCode.S))
-    //     {
-    //         exam.Submit("test");
-    //     }
+    private void Update()
+    {
+        // if (Input.GetKeyDown(KeyCode.A))
+        // {
+        //     exam.StartTask(0);
+        // }
+        // if (Input.GetKeyDown(KeyCode.S))
+        // {
+        //     exam.Submit("test");
+        // }
 
-    // }
+        debugText.text = debugMessage;
+    }
 
     public void StartTask(int inputMethod)
     {

@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 1448987683677752107}
   - component: {fileID: 3388920818454778374}
   - component: {fileID: 4110059994788141011}
-  - component: {fileID: 3853650589278792379}
+  - component: {fileID: -5962865581590681076}
   m_Layer: 5
   m_Name: Button 1
   m_TagString: Untagged
@@ -201,8 +201,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3853650589278792379}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: -5962865581590681076}
+        m_TargetAssemblyTypeName: NormalKey, Assembly-CSharp
         m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
@@ -213,7 +213,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3853650589278792379
+--- !u!114 &-5962865581590681076
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,7 +222,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6399568844820858553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e0d700a862df45a19244269587bfb06, type: 3}
+  m_Script: {fileID: 11500000, guid: cdddf639e9f7d31429ce2708433d7b40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 5232600161173403811}

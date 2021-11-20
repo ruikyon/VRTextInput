@@ -5,12 +5,12 @@ public class CursorInputModule : BaseInputModule
 {
     [SerializeField] private Cursor[] cursors;
 
-    private PointerEventData data;
+    private PointerEventData[] data;
     private bool[] preStates;
 
     public override void ActivateModule()
     {
-        data = new PointerEventData(eventSystem);
+        data = new PointerEventData[] { new PointerEventData(eventSystem), new PointerEventData(eventSystem) };
         preStates = new bool[cursors.Length];
     }
 
@@ -20,27 +20,33 @@ public class CursorInputModule : BaseInputModule
         {
             var cursor = cursors[i];
             var preState = preStates[i];
+            var datum = data[i];
 
             if (cursor)
             {
-                data.Reset();
-                data.position = Camera.main.WorldToScreenPoint(cursor.transform.position);
-                eventSystem.RaycastAll(data, m_RaycastResultCache);
+                datum.Reset();
+                datum.position = Camera.main.WorldToScreenPoint(cursor.transform.position);
+                eventSystem.RaycastAll(datum, m_RaycastResultCache);
 
-                data.button = PointerEventData.InputButton.Left;
-                data.pointerCurrentRaycast = FindFirstRaycast(m_RaycastResultCache);
-                var hitObject = data.pointerCurrentRaycast.gameObject;
+                datum.button = PointerEventData.InputButton.Left;
+                datum.pointerCurrentRaycast = FindFirstRaycast(m_RaycastResultCache);
+                var hitObject = datum.pointerCurrentRaycast.gameObject;
+
+                GameManager.Instance.debugMessage = "im: " + preState + ", " + cursor.Clicked;
 
                 if (!preState && cursor.Clicked)
                 {
-                    HandleClickEvents(data, hitObject);
+                    HandleClickEvents(datum, hitObject);
                 }
 
-                HandlePointerExitAndEnter(data, hitObject);
+
+                HandlePointerExitAndEnter(datum, hitObject);
 
                 preStates[i] = cursor.Clicked;
                 m_RaycastResultCache.Clear();
             }
+
+            data[i] = datum;
         }
     }
 
