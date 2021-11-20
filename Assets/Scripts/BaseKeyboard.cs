@@ -16,6 +16,8 @@ public class BaseKeyboard : MonoBehaviour
 
     public void Submit()
     {
+        if (Value.Length == 0) { return; }
+
         exam.Submit(Value);
         Value = "";
         KeyBoardOutput.value = Value;
