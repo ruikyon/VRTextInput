@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseKeyboard : MonoBehaviour
@@ -25,8 +23,11 @@ public class BaseKeyboard : MonoBehaviour
 
     public void BackSpace()
     {
-        Value = Value.Remove(Value.Length - 1, 1);
         Logger.AddAction("back space");
+
+        if (Value.Length == 0) { return; }
+
+        Value = Value.Remove(Value.Length - 1, 1);
         KeyBoardOutput.value = Value;
     }
 

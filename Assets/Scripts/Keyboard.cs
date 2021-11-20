@@ -8,7 +8,7 @@ public class Keyboard : BaseKeyboard
 {
     List<Key> keyList;
     int preXL = -1, preYL = -1, preXR = -1, preYR = -1;
-    private bool expansion;
+    private bool expansionL, expansionR;
 
     void Awake()
     {
@@ -42,21 +42,19 @@ public class Keyboard : BaseKeyboard
     void Update()
     {
         // back space
-        if (OVRInput.GetDown(OVRInput.RawButton.A) && Value.Length > 0)
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
-            Value = Value.Remove(Value.Length - 1, 1);
-            Logger.AddAction("back space");
+            BackSpace();
         }
 
         if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
-            exam.Submit(Value);
-            Value = "";
+            Submit();
         }
 
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
-            expansion = true;
+            expansionR = true;
             for (var i = 0; i < 3; i++)
             {
                 keyList[(2 - i) * 10 + 6].GetComponent<Button>().interactable = false;
@@ -68,7 +66,7 @@ public class Keyboard : BaseKeyboard
 
         if (OVRInput.GetUp(OVRInput.RawButton.RHandTrigger))
         {
-            expansion = false;
+            expansionR = false;
             for (var i = 0; i < 3; i++)
             {
                 keyList[(2 - i) * 10 + 6].GetComponent<Button>().interactable = true;
@@ -80,7 +78,7 @@ public class Keyboard : BaseKeyboard
 
         if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
         {
-            expansion = true;
+            expansionL = true;
             for (var i = 0; i < 3; i++)
             {
                 keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = false;
@@ -92,7 +90,7 @@ public class Keyboard : BaseKeyboard
 
         if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
         {
-            expansion = false;
+            expansionL = false;
             for (var i = 0; i < 3; i++)
             {
                 keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = true;
@@ -121,7 +119,7 @@ public class Keyboard : BaseKeyboard
         var stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
         var stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
 
-        var x = StickXValue(stickL.x) * (expansion ? 2 : 1);
+        var x = StickXValue(stickL.x) * (expansionL ? 2 : 1);
         var y = StickYValue(stickL.y);
 
         if (x != preXL || y != preYL)
@@ -138,7 +136,7 @@ public class Keyboard : BaseKeyboard
             keyList[(1 - preYL) * 10 + preXL + 2].OnClick();
         }
 
-        x = StickXValue(stickR.x) * (expansion ? 2 : 1);
+        x = StickXValue(stickR.x) * (expansionR ? 2 : 1);
         y = StickYValue(stickR.y);
 
         if (x != preXR || y != preYR)

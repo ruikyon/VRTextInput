@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] InputExam exam;
     [SerializeField] GameObject modeSelector, problem, proposedKeyboard, existingKeyboard;
     [SerializeField] GameObject[] pointers;
-    [SerializeField] GameObject[] cursors;
     [SerializeField] Text debugText;
 
     public string debugMessage;
@@ -43,15 +42,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.A))
-        // {
-        //     exam.StartTask(0);
-        // }
-        // if (Input.GetKeyDown(KeyCode.S))
-        // {
-        //     exam.Submit("test");
-        // }
-
         debugText.text = debugMessage;
     }
 
@@ -66,7 +56,7 @@ public class GameManager : MonoBehaviour
                 proposedKeyboard.SetActive(true);
                 break;
             case (int)InputMethod.ExistingMethod:
-                existingKeyboard.SetActive(true); // cursorのアクティブ管理に関してはこことまとめられる説
+                existingKeyboard.SetActive(true);
                 break;
         }
 
