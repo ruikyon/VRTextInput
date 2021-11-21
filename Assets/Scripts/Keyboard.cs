@@ -158,11 +158,11 @@ public class Keyboard : BaseKeyboard
 
     private int StickYValue(float value)
     {
-        if (value < -0.25)
+        if (value < -0.33)
         {
             return -1;
         }
-        else if (value < 0.25)
+        else if (value < 0.33)
         {
             return 0;
         }
@@ -171,11 +171,11 @@ public class Keyboard : BaseKeyboard
 
     private int StickXValue(float value)
     {
-        if (value < -0.25)
+        if (value < -0.33)
         {
             return -1;
         }
-        else if (value < 0.25)
+        else if (value < 0.33)
         {
             return 0;
         }

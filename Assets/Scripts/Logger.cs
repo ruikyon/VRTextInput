@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Logger
 {
@@ -66,7 +67,7 @@ public class Logger
     {
         Instance.taskLog = new TaskLog();
         Instance.taskLog.inputMethod = inpurMethod;
-        Instance.taskLog.id = 0; // todo: playerprefsからとる？
+        Instance.taskLog.id = PlayerPrefs.GetInt("id", 0);
         Instance.taskLog.startTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         Instance.problemLogList = new List<ProblemLog>();
     }
@@ -91,7 +92,13 @@ public class Logger
         }
 
         // server保存
-        // TODO: server request
+        WWWForm form = new WWWForm();
+        form.AddField("inputMethod", Instance.taskLog.inputMethod);
+        form.AddField("date", Instance.taskLog.startTime);
+        form.AddField("id", Instance.taskLog.id);
+        form.AddField("log", JsonUtility.ToJson(Instance.taskLog.problemLogList));
+
+        GameManager.Instance.RegistResult(form);
     }
 
     public static void StartProblem()
