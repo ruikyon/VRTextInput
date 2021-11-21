@@ -10,7 +10,7 @@ public class NormalKeyboard : BaseKeyboard
         var keyArray = textFile.text.Split('\n');
         float xOffset = 0;
         float yOffset = 0;
-        float xDefault = -1.25f;
+        float xDefault = -1.15f;
         foreach (var row in keyArray)
         {
             xOffset = xDefault;
@@ -23,7 +23,7 @@ public class NormalKeyboard : BaseKeyboard
                 xOffset += keyDistance;
             }
             yOffset -= keyDistance;
-            xDefault += 0.1f;
+            xDefault += 0.07f;
         }
     }
 

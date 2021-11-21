@@ -33,13 +33,18 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
 
+    private void OnEnable()
+    {
+        // 表示が遅くなるようだったら対処考える
         if (!PlayerPrefs.HasKey("id"))
         {
             StartCoroutine("GetId");
         }
         else
         {
+            idText.text = "ID: " + PlayerPrefs.GetInt("id", 0).ToString();
             StartCoroutine(GetLog(PlayerPrefs.GetInt("id", 0)));
         }
     }
@@ -93,30 +98,25 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GetId()
     {
-        var uri = "https://sunu.club/experiment/get_id";
+        var uri = "https://api.sunu.club/experiment/get_id";
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
             // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();
 
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
             switch (webRequest.result)
             {
                 case UnityWebRequest.Result.ConnectionError:
                 case UnityWebRequest.Result.DataProcessingError:
-                    Debug.LogError(pages[page] + ": Error: " + webRequest.error);
-                    break;
                 case UnityWebRequest.Result.ProtocolError:
-                    Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
+                    GameManager.Instance.debugMessage = "Request Error: " + webRequest.error;
                     break;
                 case UnityWebRequest.Result.Success: // 多分ここが成功
-                    Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
+                    Debug.Log(webRequest.downloadHandler.text);
                     var id = Int32.Parse(webRequest.downloadHandler.text);
                     PlayerPrefs.SetInt("id", id);
-                    idText.text = id.ToString();
+                    idText.text = "ID: " + id.ToString();
                     break;
             }
         }
@@ -124,7 +124,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GetLog(int id)
     {
-        var uri = "https://sunu.club/experiment/get_log/" + id;
+        var uri = "https://api.sunu.club/experiment/get_log/" + id;
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
         {
@@ -146,8 +146,8 @@ public class GameManager : MonoBehaviour
                 case UnityWebRequest.Result.Success: // 多分ここが成功
                     Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
                     var counts = webRequest.downloadHandler.text.Split(',');
-                    proposedButton.text = counts[0];
-                    existedButton.text = counts[1];
+                    proposedButton.text = "提案手法 (" + counts[0] + "回)";
+                    existedButton.text = "既存手法 (" + counts[1] + "回)";
                     break;
             }
         }
@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Regist(WWWForm form)
     {
-        using (UnityWebRequest www = UnityWebRequest.Post("https://sunu.club/experiment/regist", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("https://api.sunu.club/experiment/regist", form))
         {
             yield return www.SendWebRequest();
 

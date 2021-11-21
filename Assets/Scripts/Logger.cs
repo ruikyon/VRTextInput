@@ -58,6 +58,12 @@ public class Logger
         public ProblemLog[] problemLogList;
     }
 
+    [Serializable]
+    public class LogObj
+    {
+        public ProblemLog[] logs;
+    }
+
     private List<ActionLog> actionList = new List<ActionLog>();
     private List<ProblemLog> problemLogList = new List<ProblemLog>();
     private TaskLog taskLog;
@@ -96,7 +102,10 @@ public class Logger
         form.AddField("inputMethod", Instance.taskLog.inputMethod);
         form.AddField("date", Instance.taskLog.startTime);
         form.AddField("id", Instance.taskLog.id);
-        form.AddField("log", JsonUtility.ToJson(Instance.taskLog.problemLogList));
+
+        var logObj = new LogObj();
+        logObj.logs = Instance.taskLog.problemLogList;
+        form.AddField("log", JsonUtility.ToJson(logObj));
 
         GameManager.Instance.RegistResult(form);
     }
