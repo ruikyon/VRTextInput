@@ -32,8 +32,6 @@ public class CursorInputModule : BaseInputModule
                 datum.pointerCurrentRaycast = FindFirstRaycast(m_RaycastResultCache);
                 var hitObject = datum.pointerCurrentRaycast.gameObject;
 
-                GameManager.Instance.debugMessage = "im: " + preState + ", " + cursor.Clicked;
-
                 if (!preState && cursor.Clicked)
                 {
                     HandleClickEvents(datum, hitObject);
