@@ -878,7 +878,7 @@ RectTransform:
   - {fileID: 1712706189}
   - {fileID: 2054562779}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1997,7 +1997,7 @@ RectTransform:
   m_Children:
   - {fileID: 873419827}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2741,6 +2741,8 @@ MonoBehaviour:
     type: 3}
   exam: {fileID: 1764606222}
   keyDistance: 0.18
+  xDefault: -1.15
+  xShift: 0.07
 --- !u!114 &1605894898735107472
 MonoBehaviour:
   m_ObjectHideFlags: 0

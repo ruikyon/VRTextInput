@@ -2,6 +2,8 @@
 
 public class NormalKeyboard : BaseKeyboard
 {
+    [SerializeField] private float xDefault, xShift;
+
     void Awake()
     {
         var textFile = Resources.Load<TextAsset>("normal_layout");
@@ -10,7 +12,6 @@ public class NormalKeyboard : BaseKeyboard
         var keyArray = textFile.text.Split('\n');
         float xOffset = 0;
         float yOffset = 0;
-        float xDefault = -1.15f;
         foreach (var row in keyArray)
         {
             xOffset = xDefault;
@@ -23,13 +24,13 @@ public class NormalKeyboard : BaseKeyboard
                 xOffset += keyDistance;
             }
             yOffset -= keyDistance;
-            xDefault += 0.07f;
+            xDefault += xShift;
         }
     }
 
     private void Update()
     {
-        if (OVRInput.GetDown(OVRInput.RawButton.B))
+        if (OVRInput.GetDown(OVRInput.RawButton.Y))
         {
             Submit();
         }

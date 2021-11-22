@@ -32,9 +32,6 @@ public class Keyboard : BaseKeyboard
             }
             yOffset -= keyDistance;
         }
-
-        var cursor = transform.GetChild(0);
-        cursor.SetSiblingIndex(transform.childCount - 1);
     }
 
     private void Start()
@@ -51,7 +48,7 @@ public class Keyboard : BaseKeyboard
             BackSpace();
         }
 
-        if (OVRInput.GetDown(OVRInput.RawButton.B))
+        if (OVRInput.GetDown(OVRInput.RawButton.Y))
         {
             Submit();
         }
