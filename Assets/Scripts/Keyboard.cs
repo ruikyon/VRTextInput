@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -38,10 +37,15 @@ public class Keyboard : BaseKeyboard
         cursor.SetSiblingIndex(transform.childCount - 1);
     }
 
+    private void Start()
+    {
+        ChangeArea(true, false);
+        ChangeArea(false, false);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        // back space
         if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
             BackSpace();
@@ -55,72 +59,31 @@ public class Keyboard : BaseKeyboard
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
             expansionR = true;
-            for (var i = 0; i < 3; i++)
-            {
-                keyList[(2 - i) * 10 + 6].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 8].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 5].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 9].GetComponent<Button>().interactable = true;
-            }
+            ChangeArea(true, true);
         }
 
         if (OVRInput.GetUp(OVRInput.RawButton.RHandTrigger))
         {
             expansionR = false;
-            for (var i = 0; i < 3; i++)
-            {
-                keyList[(2 - i) * 10 + 6].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 8].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 5].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 9].GetComponent<Button>().interactable = false;
-            }
+            ChangeArea(true, false);
         }
 
         if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
         {
             expansionL = true;
-            for (var i = 0; i < 3; i++)
-            {
-                keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 3].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 0].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 4].GetComponent<Button>().interactable = true;
-            }
+            ChangeArea(false, true);
         }
 
         if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
         {
             expansionL = false;
-            for (var i = 0; i < 3; i++)
-            {
-                keyList[(2 - i) * 10 + 1].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 3].GetComponent<Button>().interactable = true;
-                keyList[(2 - i) * 10 + 0].GetComponent<Button>().interactable = false;
-                keyList[(2 - i) * 10 + 4].GetComponent<Button>().interactable = false;
-            }
+            ChangeArea(false, false);
         }
 
-
-        // if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
-        // {
-        //     foreach (var key in keyList)
-        //     {
-        //         key.ToShift();
-        //     }
-        // }
-        // if (OVRInput.GetUp(OVRInput.RawButton.LHandTrigger))
-        // {
-        //     foreach (var key in keyList)
-        //     {
-        //         key.ToNormal();
-        //     }
-        // }
-
         var stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
-        var stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
 
-        var x = StickXValue(stickL.x) * (expansionL ? 2 : 1);
-        var y = StickYValue(stickL.y);
+        var x = StickValue(stickL.x) * (expansionL ? 2 : 1);
+        var y = StickValue(stickL.y);
 
         if (x != preXL || y != preYL)
         {
@@ -136,8 +99,10 @@ public class Keyboard : BaseKeyboard
             keyList[(1 - preYL) * 10 + preXL + 2].OnClick();
         }
 
-        x = StickXValue(stickR.x) * (expansionR ? 2 : 1);
-        y = StickYValue(stickR.y);
+        var stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+
+        x = StickValue(stickR.x) * (expansionR ? 2 : 1);
+        y = StickValue(stickR.y);
 
         if (x != preXR || y != preYR)
         {
@@ -156,29 +121,29 @@ public class Keyboard : BaseKeyboard
         KeyBoardOutput.value = Value;
     }
 
-    private int StickYValue(float value)
+    private int StickValue(float value)
     {
-        if (value < -0.33)
+        var threshold = 0.33f;
+        if (value < -threshold)
         {
             return -1;
         }
-        else if (value < 0.33)
+        else if (value < threshold)
         {
             return 0;
         }
         return 1;
     }
 
-    private int StickXValue(float value)
+    private void ChangeArea(bool isRight, bool isExpansion)
     {
-        if (value < -0.33)
+        for (var i = 0; i < 3; i++)
         {
-            return -1;
+            var offset = (2 - i) * 10 + (isRight ? 5 : 0);
+            keyList[offset + 1].GetComponent<Button>().interactable = !isExpansion;
+            keyList[offset + 3].GetComponent<Button>().interactable = !isExpansion;
+            keyList[offset + 0].GetComponent<Button>().interactable = isExpansion;
+            keyList[offset + 4].GetComponent<Button>().interactable = isExpansion;
         }
-        else if (value < 0.33)
-        {
-            return 0;
-        }
-        return 1;
     }
 }
