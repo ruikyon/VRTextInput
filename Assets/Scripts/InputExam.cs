@@ -7,14 +7,21 @@ public class InputExam : MonoBehaviour
 {
     [SerializeField] private Text problemText;
     private int progress;
-    private readonly int numberOfProblem = 3; // TODO: データ入れたら変える(5の予定？)
+    private readonly int numberOfProblem = 5;
     private bool underTask;
     private string currentProblem;
-    private string[] problems = { // TODO: データセットちゃんと検討する
-        "Nice to meet you!",
-        "I am going to see Mike.",
-        "What day is tomorrow?"
-    };
+    private List<string> problems = new List<string>();
+
+    private void Awake()
+    {
+        var dataSet = Resources.Load<TextAsset>("data_set");
+        var dataArray = dataSet.text.Split('\n');
+
+        foreach (var row in dataArray)
+        {
+            problems.Add(row);
+        }
+    }
 
     public void StartTask(int inputMethod)
     {
@@ -50,8 +57,11 @@ public class InputExam : MonoBehaviour
 
     private void AskQuestions()
     {
-        currentProblem = problems[progress];  // TODO: 問題の決定はちゃんとする
+        var index = Random.Range(0, problems.Count);
+        currentProblem = problems[index];
         problemText.text = currentProblem;
+
+        problems.RemoveAt(index);
 
         Logger.StartProblem();
     }
