@@ -13,8 +13,8 @@ public class Cursor : MonoBehaviour
         var stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
         var stick = isRight ? stickR : stickL;
 
-        var x = Cap(stick.x * 150, 110) - (isRight ? -1 : 1) * 110;
-        var y = Cap(stick.y * 100, 75);
+        var x = Cap(stick.x * 140, 105) - (isRight ? -1 : 1) * 112.5f;
+        var y = Cap(stick.y * 80, 60);
         transform.localPosition = new Vector3(x, y, 0);
 
         Clicked = isRight ? OVRInput.Get(OVRInput.RawButton.RIndexTrigger) : OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger);
