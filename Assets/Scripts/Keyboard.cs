@@ -16,17 +16,16 @@ public class Keyboard : BaseKeyboard
         keyList = new List<Key>();
 
         var keyArray = textFile.text.Split('\n');
-        float xOffset = 0;
-        float yOffset = 0;
+        var yOffset = keyDistance;
         foreach (var row in keyArray)
         {
-            xOffset = -2;
+            var xOffset = -4.5f * keyDistance;
             var keys = row.Split(',');
             foreach (var key in keys)
             {
                 var tmp = Instantiate<Key>(keyPrefab, transform);
                 tmp.Init(key == "comma" ? "," : key, key);
-                tmp.transform.position += new Vector3(xOffset, yOffset, 0);
+                tmp.transform.localPosition += new Vector3(xOffset, yOffset, 0);
                 xOffset += keyDistance;
                 keyList.Add(tmp);
             }
