@@ -2678,8 +2678,6 @@ MonoBehaviour:
     type: 3}
   exam: {fileID: 1764606222}
   keyDistance: 30
-  xDefault: -1.15
-  xShift: 0.07
 --- !u!114 &1605894898735107472
 MonoBehaviour:
   m_ObjectHideFlags: 0
