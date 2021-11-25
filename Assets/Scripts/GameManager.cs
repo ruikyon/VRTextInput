@@ -9,6 +9,7 @@ using UnityEngine.Networking;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] InputExam exam;
+    [SerializeField] GameObject rig;
     [SerializeField] GameObject modeSelector, problem, proposedKeyboard, existingKeyboard;
     [SerializeField] GameObject[] pointers;
     [SerializeField] Text debugText, idText, proposedButton, existedButton;
@@ -52,6 +53,12 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         debugText.text = debugMessage;
+
+        // カメラの高さ調整
+        if (!exam.underTask && OVRInput.GetDown(OVRInput.RawButton.X))
+        {
+
+        }
     }
 
     public void StartTask(int inputMethod)

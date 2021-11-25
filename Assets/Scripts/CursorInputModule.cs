@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class CursorInputModule : BaseInputModule
 {
     [SerializeField] private Cursor[] cursors;
+    [SerializeField] private Camera targetCamera;
 
     private PointerEventData[] data;
     private bool[] preStates;
@@ -25,7 +26,7 @@ public class CursorInputModule : BaseInputModule
             if (cursor)
             {
                 datum.Reset();
-                datum.position = Camera.main.WorldToScreenPoint(cursor.transform.position);
+                datum.position = targetCamera.WorldToScreenPoint(cursor.transform.position);
                 eventSystem.RaycastAll(datum, m_RaycastResultCache);
 
                 datum.button = PointerEventData.InputButton.Left;

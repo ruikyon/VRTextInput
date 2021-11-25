@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class KeyBoardOutput : MonoBehaviour
 {
     [SerializeField] Keyboard keyboard;
+    private TMPro.TextMeshProUGUI cardNameText;
     Text text;
 
     public static string value;
@@ -13,12 +14,12 @@ public class KeyBoardOutput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text = GetComponent<Text>();
+        cardNameText = GetComponent<TMPro.TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        text.text = value;
+        cardNameText.text = value;
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class InputExam : MonoBehaviour
 {
-    [SerializeField] private Text problemText;
+    [SerializeField] private TMPro.TextMeshProUGUI problemText;
     private int progress;
     private readonly int numberOfProblem = 5;
-    private bool underTask;
+    public bool underTask;
     private string currentProblem;
     private List<string> problems = new List<string>();
 
