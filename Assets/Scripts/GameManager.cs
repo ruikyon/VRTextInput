@@ -34,9 +34,11 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        SetData();
     }
 
-    private void OnEnable()
+    private void SetData()
     {
         // 表示が遅くなるようだったら対処考える
         if (!PlayerPrefs.HasKey("id"))
@@ -96,6 +98,8 @@ public class GameManager : MonoBehaviour
         {
             pointer.SetActive(true);
         }
+
+        SetData();
     }
 
     public void RegistResult(WWWForm form)
