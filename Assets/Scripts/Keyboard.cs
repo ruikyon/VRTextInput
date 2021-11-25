@@ -119,7 +119,7 @@ public class Keyboard : BaseKeyboard
 
     private int StickValue(float value)
     {
-        var threshold = 0.33f;
+        var threshold = 0.4f;
         if (value < -threshold)
         {
             return -1;
