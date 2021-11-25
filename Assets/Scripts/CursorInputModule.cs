@@ -23,7 +23,7 @@ public class CursorInputModule : BaseInputModule
             var preState = preStates[i];
             var datum = data[i];
 
-            if (cursor)
+            if (cursor && cursor.gameObject.activeInHierarchy)
             {
                 datum.Reset();
                 datum.position = targetCamera.WorldToScreenPoint(cursor.transform.position);

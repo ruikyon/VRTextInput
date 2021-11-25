@@ -20,6 +20,6 @@ public class KeyBoardOutput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cardNameText.text = value;
+        cardNameText.text = value + "_";
     }
 }
