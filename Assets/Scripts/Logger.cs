@@ -108,6 +108,7 @@ public class Logger
         form.AddField("log", JsonUtility.ToJson(logObj));
 
         GameManager.Instance.RegistResult(form);
+        GameManager.Instance.AddCount(Instance.taskLog.inputMethod);
     }
 
     public static void StartProblem()

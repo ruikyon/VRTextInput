@@ -35,12 +35,6 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        SetData();
-    }
-
-    private void SetData()
-    {
-        // 表示が遅くなるようだったら対処考える
         if (!PlayerPrefs.HasKey("id"))
         {
             StartCoroutine("GetId");
@@ -48,19 +42,19 @@ public class GameManager : MonoBehaviour
         else
         {
             idText.text = "ID: " + PlayerPrefs.GetInt("id", 0).ToString();
-            StartCoroutine(GetLog(PlayerPrefs.GetInt("id", 0)));
+            SetData();
         }
+    }
+
+    private void SetData()
+    {
+        proposedButton.text = "提案手法 (" + PlayerPrefs.GetInt("pCount", 0).ToString() + "回)";
+        existedButton.text = "既存手法 (" + PlayerPrefs.GetInt("eCount", 0).ToString() + "回)";
     }
 
     private void Update()
     {
         debugText.text = debugMessage;
-
-        // カメラの高さ調整
-        if (!exam.underTask && OVRInput.GetDown(OVRInput.RawButton.X))
-        {
-
-        }
     }
 
     public void StartTask(int inputMethod)
@@ -102,6 +96,13 @@ public class GameManager : MonoBehaviour
         SetData();
     }
 
+    public void AddCount(int inputMethod)
+    {
+        var key = inputMethod == (int)InputMethod.ProposedMethod ? "pCount" : "eCount";
+        var count = PlayerPrefs.GetInt(key, 0);
+        PlayerPrefs.SetInt(key, count + 1);
+    }
+
     public void RegistResult(WWWForm form)
     {
         StartCoroutine(Regist(form));
@@ -128,37 +129,6 @@ public class GameManager : MonoBehaviour
                     var id = Int32.Parse(webRequest.downloadHandler.text);
                     PlayerPrefs.SetInt("id", id);
                     idText.text = "ID: " + id.ToString();
-                    break;
-            }
-        }
-    }
-
-    IEnumerator GetLog(int id)
-    {
-        var uri = "https://api.sunu.club/experiment/get_log/" + id;
-
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
-        {
-            // Request and wait for the desired page.
-            yield return webRequest.SendWebRequest();
-
-            string[] pages = uri.Split('/');
-            int page = pages.Length - 1;
-
-            switch (webRequest.result)
-            {
-                case UnityWebRequest.Result.ConnectionError:
-                case UnityWebRequest.Result.DataProcessingError:
-                    Debug.LogError(pages[page] + ": Error: " + webRequest.error);
-                    break;
-                case UnityWebRequest.Result.ProtocolError:
-                    Debug.LogError(pages[page] + ": HTTP Error: " + webRequest.error);
-                    break;
-                case UnityWebRequest.Result.Success: // 多分ここが成功
-                    Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
-                    var counts = webRequest.downloadHandler.text.Split(',');
-                    proposedButton.text = "提案手法 (" + counts[0] + "回)";
-                    existedButton.text = "既存手法 (" + counts[1] + "回)";
                     break;
             }
         }
