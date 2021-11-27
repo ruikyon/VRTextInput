@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InputExam : MonoBehaviour
 {
-    [SerializeField] private TMPro.TextMeshProUGUI problemText;
+    [SerializeField] private TMPro.TextMeshProUGUI problemText, progressText;
     private int progress;
     private readonly int numberOfProblem = 5;
     public bool underTask;
@@ -60,6 +60,7 @@ public class InputExam : MonoBehaviour
         var index = Random.Range(0, problems.Count);
         currentProblem = problems[index];
         problemText.text = currentProblem;
+        progressText.text = "Q: " + (progress + 1) + " / " + numberOfProblem;
 
         problems.RemoveAt(index);
 
